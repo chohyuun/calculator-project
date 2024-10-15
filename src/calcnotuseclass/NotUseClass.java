@@ -11,20 +11,17 @@ public class NotUseClass {
         double operand1 = 0;
         double operand2 = 0;
 
+        boolean arithmeticCheck = false;
+
         while (true) {
             try {
                 System.out.print("피연산자를 입력해 주세요(숫자 2개/ 종료: exit) : ");
                 String input1 = sc.next();
-                if(input1.equals("exit")){
+                if (input1.equals("exit")) {
                     break;
                 }
-                String input2 = sc.next();
-                if(input2.equals("exit")){
-                    break;
-                }
-
                 operand1 = Double.parseDouble(input1);
-                operand2 = Double.parseDouble(input2);
+                operand2 = sc.nextDouble();
 
                 System.out.print("연산자를 입력해 주세요.(+, -, *, /, %) : ");
                 String operation = sc.next();
@@ -50,15 +47,20 @@ public class NotUseClass {
                         System.out.println("사용 가능한 연산자를 입력해 주세요.");
                         break;
                 }
+                arithmeticCheck = Double.isInfinite(result) || Double.isNaN(result);
+                if(arithmeticCheck) {
+                    throw new ArithmeticException();
+                }
             } catch (NumberFormatException e) {
                 // 입력받은 값이 숫자가 아닌 경우 예외 처리
                 System.out.println("숫자를 입력해 주세요.");
             } catch (ArithmeticException e) {
                 // 나누기 연산 중 분모가 0일 경우 예외 처리
-                System.out.println(e.getMessage());
+                System.out.println("분모가 0이 될 순 없습니다. 다시 입력해 주세요.");
             }
-
-            System.out.println("결과 : " + result);
+            if(!arithmeticCheck) {
+                System.out.println("결과 : " + result);
+            }
         }
     }
 }
