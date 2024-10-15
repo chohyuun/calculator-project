@@ -1,9 +1,13 @@
 package classcalculator;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Calculator {
     private double result = 0;
+    private final Queue<Double> queue = new LinkedList<>();
 
-    public double calculate(double operand1, double operand2, String operation) {
+    private void calculate(double operand1, double operand2, String operation) {
         switch (operation) {
             case "+":
                 result = operand1 + operand2;
@@ -22,10 +26,22 @@ public class Calculator {
                 break;
             default:
                 // 틀린 연산자 입력의 경우 예외 처리
-                System.out.println("사용 가능한 연산자를 입력해 주세요.");
-                break;
+                throw new OperationException("사용 가능한 연산자를 입력해 주세요.");
         }
+        queue.add(result);
+    }
 
-        return result;
+    // Queue 데이터 삭제 메소드
+    public void removeResult() {
+        queue.poll();
+        System.out.println(queue.toString());
+    }
+
+    public void setCalculate(double operand1, double operand2, String operation) {
+        calculate(operand1, operand2, operation);
+    }
+
+    public double getResult() {
+        return this.result;
     }
 }
