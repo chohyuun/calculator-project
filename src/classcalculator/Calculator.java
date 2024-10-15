@@ -34,7 +34,6 @@ public class Calculator {
     // Queue 데이터 삭제 메소드
     public void removeResult() {
         queue.poll();
-        System.out.println(queue.toString());
     }
 
     public void setCalculate(double operand1, double operand2, String operation) {
